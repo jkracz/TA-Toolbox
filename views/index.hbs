@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="TA training attendence tracker">
+    <meta name="author" content="Joe Kracz, Head TA 2018-2019">
+
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header text-center">
+				<h1>
+					TA Training Attendence
+				</h1>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<h3 class="text-center">
+						Clock In
+					</h3>
+					<form role="form">
+						<div class="form-group" data-children-count="1">
+							 
+							<label for="barcode">
+								Barcode
+							</label>
+							<input type="text" class="form-control" id="barcode" data-kwimpalastatus="alive" data-kwimpalaid="1548027995003-38">
+						</div>
+						<button type="submit" class="btn btn-primary">
+							Submit
+						</button>
+					</form>
+					<h3 class="text-center">
+						Clock Out All TAs
+					</h3>
+					<form role="form">
+						<div class="form-group" data-children-count="1">
+							 
+							<label for="timeOut">
+								Time Out
+							</label>
+							<input type="time" class="form-control" id="timeOut" data-kwimpalastatus="alive" data-kwimpalaid="1548027995003-39">
+						</div>
+						<button type="submit" class="btn btn-primary">
+							Submit
+						</button>
+					</form>
+				</div>
+				<div class="col-md-6">
+					<h3 class="text-center">
+						Signed In TAs
+					</h3>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>
+									#
+								</th>
+								<th>
+									Product
+								</th>
+								<th>
+									Payment Taken
+								</th>
+								<th>
+									Status
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									1
+								</td>
+								<td>
+									TB - Monthly
+								</td>
+								<td>
+									01/04/2012
+								</td>
+								<td>
+									Default
+								</td>
+							</tr>
+							<tr class="table-active">
+								<td>
+									1
+								</td>
+								<td>
+									TB - Monthly
+								</td>
+								<td>
+									01/04/2012
+								</td>
+								<td>
+									Approved
+								</td>
+							</tr>
+							<tr class="table-success">
+								<td>
+									2
+								</td>
+								<td>
+									TB - Monthly
+								</td>
+								<td>
+									02/04/2012
+								</td>
+								<td>
+									Declined
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<script src="/javascripts/tether.min.js"></script>
+	<script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+  </body>
+</html>
