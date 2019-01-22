@@ -16,18 +16,36 @@ const config = convict({
 		arg: "port"
 	},
 	db: {
-		main: {
-			doc: "primary DB",
-			format: "*",
-			env: "DB_MAIN",
-			default: ""
+		connectionLimit: {
+			doc: 'number of connections allowed in pool at once',
+			format: 'int',
+			env: 'POOL_CONNECTION_LIMIT',
+			default: 10
+		},
+		host: {
+			doc: 'ip address of connection',
+			format: 'ipaddress',
+			env: 'DB_HOST',
+			default: ''
+		},
+		user: {
+			doc: 'username',
+			format: String,
+			env: 'DB_USER',
+			default: ''
+		},
+		password: {
+			doc: 'password for DB_USER',
+			format: String,
+			env: 'DB_PASS',
+			default: ''
+		},
+		database: {
+			doc: 'name of db we are connecting to',
+			format: String,
+			env: 'DB_NAME',
+			default: 'tatoolbox'
 		}
-	},
-	api_whitelist: {
-		doc: "IP addresses able to utilize the api",
-		format: "*",
-		env: "API_WHITELIST",
-		default: 8080
 	}
 });
   
