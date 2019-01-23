@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('./../db');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 	db.connectionPool.getConnection(function(err, connection) {
 		if (err) {
 			throw error;
@@ -38,12 +38,9 @@ router.post('/clockInOut', function(req, res, next) {
 				queryStr = db.getQueryString('clockOut', barcode);
 			}
 
-			console.log('ass:',queryStr);
 			connection.query(queryStr, function(err) {
 				connection.release();
 				if (err) {
-					console.log(error);
-					console.log('ass:',queryStr);
 					throw error;
 				}
 				res.redirect('/');
@@ -52,7 +49,7 @@ router.post('/clockInOut', function(req, res, next) {
 	});
 });
 
-router.post('/clockOutAll', function(req, res, next) {
+router.post('/clockOutAll', function(req, res) {
 	db.connectionPool.getConnection(function(err, connection) {
 		if (err) {
 			throw error;
@@ -61,8 +58,6 @@ router.post('/clockOutAll', function(req, res, next) {
 		connection.query(queryStr, function(err) {
 			connection.release();
 			if (err) {
-				console.log(err);
-				console.log(queryStr);
 				throw error;
 			}
 			res.redirect('/');
