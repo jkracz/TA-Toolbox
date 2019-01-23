@@ -6,7 +6,6 @@ const db = require('./../db');
 router.get('/', function(req, res) {
 	db.connectionPool.getConnection(function(err, connection) {
 		if (err) {
-			console.log(err);
 			throw err;
 		}
 
