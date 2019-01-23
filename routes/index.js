@@ -8,17 +8,64 @@ router.get('/', function(req, res, next) {
 		if (err) {
 			throw error;
 		}
-		const queryStr = `SELECT * FROM tatoolbox.TrainingAttendance AS ta
-							LEFT OUTER JOIN tatoolbox.TAInfo AS tai ON (tai.Barcode = ta.Barcode)
-							WHERE ta.TimeOut IS NULL
-							ORDER BY ta.TimeIn DESC;`;
+
+		const queryStr = db.getQueryString('fetchClockedIn');
 		connection.query(queryStr, function(err, results, fields) {
 			connection.release();
 			if (err) {
 				throw error;
 			}
-			console.log(fields);
 			res.render('index', { title: 'TA Toolbox', data: results, fields: fields });
+		});
+	});
+});
+
+router.post('/clockInOut', function(req, res, next) {
+	db.connectionPool.getConnection(function(err, connection) {
+		if (err) {
+			throw error;
+		}
+		const barcode = req.body['barcode'];
+		let queryStr = db.getQueryString('checkStatus', barcode);
+		connection.query(queryStr, function(err, results) {
+			if (err) {
+				throw error;
+			}
+			if (results.length === 0) {
+				queryStr = db.getQueryString('clockIn', barcode);
+			}
+			else {
+				queryStr = db.getQueryString('clockOut', barcode);
+			}
+
+			console.log('ass:',queryStr);
+			connection.query(queryStr, function(err) {
+				connection.release();
+				if (err) {
+					console.log(error);
+					console.log('ass:',queryStr);
+					throw error;
+				}
+				res.redirect('/');
+			});
+		});
+	});
+});
+
+router.post('/clockOutAll', function(req, res, next) {
+	db.connectionPool.getConnection(function(err, connection) {
+		if (err) {
+			throw error;
+		}
+		const queryStr = db.getQueryString('clockOutAll', req.body['timeout']);
+		connection.query(queryStr, function(err) {
+			connection.release();
+			if (err) {
+				console.log(err);
+				console.log(queryStr);
+				throw error;
+			}
+			res.redirect('/');
 		});
 	});
 });

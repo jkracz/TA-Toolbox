@@ -19,21 +19,21 @@
 		<div class="col-md-12">
 			<div class="page-header text-center">
 				<h1>
-					TA Training Attendence
+					TA Training Attendance
 				</h1>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<h3 class="text-center">
-						Clock In
+						Clock In / Clock Out
 					</h3>
-					<form role="form">
+					<form role="form" method="POST" action="/clockInOut">
 						<div class="form-group" data-children-count="1">
 							 
 							<label for="barcode">
 								Barcode
 							</label>
-							<input type="text" class="form-control" id="barcode" data-kwimpalastatus="alive" data-kwimpalaid="1548027995003-38">
+							<input name="barcode" type="text" class="form-control" id="barcode" data-kwimpalastatus="alive" data-kwimpalaid="1548027995003-38" autofocus>
 						</div>
 						<button type="submit" class="btn btn-primary">
 							Submit
@@ -42,13 +42,13 @@
 					<h3 class="text-center">
 						Clock Out All TAs
 					</h3>
-					<form role="form">
+					<form role="form" method="POST" action="/clockOutAll">
 						<div class="form-group" data-children-count="1">
 							 
 							<label for="timeOut">
 								Time Out
 							</label>
-							<input type="time" class="form-control" id="timeOut" data-kwimpalastatus="alive" data-kwimpalaid="1548027995003-39">
+							<input name="timeout" type="time" class="form-control" id="timeOut" data-kwimpalastatus="alive" data-kwimpalaid="1548027995003-39">
 						</div>
 						<button type="submit" class="btn btn-primary">
 							Submit
@@ -59,66 +59,36 @@
 					<h3 class="text-center">
 						Signed In TAs
 					</h3>
-					<table class="table table-hover">
+					<table class="table table-hover table-striped table-bordered table-wrapper-scroll-y">
 						<thead>
 							<tr>
-								<th>
-									#
-								</th>
-								<th>
-									Product
-								</th>
-								<th>
-									Payment Taken
-								</th>
-								<th>
-									Status
-								</th>
+								{{#each fields as |f|}}
+									<th>
+										{{name}}
+									</th>
+								{{/each}}
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									1
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									01/04/2012
-								</td>
-								<td>
-									Default
-								</td>
-							</tr>
-							<tr class="table-active">
-								<td>
-									1
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									01/04/2012
-								</td>
-								<td>
-									Approved
-								</td>
-							</tr>
-							<tr class="table-success">
-								<td>
-									2
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									02/04/2012
-								</td>
-								<td>
-									Declined
-								</td>
-							</tr>
+							{{#each data as |row|}}
+								<tr>
+									<td>
+										{{Barcode}}
+									</td>
+									<td>
+										{{NetID}}
+									</td>
+									<td>
+										{{FirstName}}
+									</td>
+									<td>
+										{{LastName}}
+									</td>
+									<td>
+										{{TimeIn}}
+									</td>
+								</tr>
+							{{/each}}
 						</tbody>
 					</table>
 				</div>
