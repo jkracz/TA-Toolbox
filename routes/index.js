@@ -6,30 +6,31 @@ const db = require('./../db');
 router.get('/', function(req, res) {
 	db.connectionPool.getConnection(function(err, connection) {
 		if (err) {
-			throw error;
+			console.log(err);
+			throw err;
 		}
 
 		const queryStr = db.getQueryString('fetchClockedIn');
 		connection.query(queryStr, function(err, results, fields) {
 			connection.release();
 			if (err) {
-				throw error;
+				throw err;
 			}
 			res.render('index', { title: 'TA Toolbox', data: results, fields: fields });
 		});
 	});
 });
 
-router.post('/clockInOut', function(req, res, next) {
+router.post('/clockInOut', function(req, res) {
 	db.connectionPool.getConnection(function(err, connection) {
 		if (err) {
-			throw error;
+			throw err;
 		}
 		const barcode = req.body['barcode'];
 		let queryStr = db.getQueryString('checkStatus', barcode);
 		connection.query(queryStr, function(err, results) {
 			if (err) {
-				throw error;
+				throw err;
 			}
 			if (results.length === 0) {
 				queryStr = db.getQueryString('clockIn', barcode);
@@ -41,7 +42,7 @@ router.post('/clockInOut', function(req, res, next) {
 			connection.query(queryStr, function(err) {
 				connection.release();
 				if (err) {
-					throw error;
+					throw err;
 				}
 				res.redirect('/');
 			});
@@ -52,13 +53,13 @@ router.post('/clockInOut', function(req, res, next) {
 router.post('/clockOutAll', function(req, res) {
 	db.connectionPool.getConnection(function(err, connection) {
 		if (err) {
-			throw error;
+			throw err;
 		}
 		const queryStr = db.getQueryString('clockOutAll', req.body['timeout']);
 		connection.query(queryStr, function(err) {
 			connection.release();
 			if (err) {
-				throw error;
+				throw err;
 			}
 			res.redirect('/');
 		});
